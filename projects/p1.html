@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TfL info app</title>
+    <!-- Adding CSS styles from w3schools -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+
+<div class="w3-container" >
+    <h2>TfL local infomation app </h2>
+
+    <p>
+        <button  id="apiButton_1" class="w3-button w3-blue w3-border w3-round-large">Sandycoombe Road - East Bound </button>
+        <div id="output_1"></div>
+    </p>
+    <p>
+        <button id="apiButton_2"  class="w3-button w3-blue w3-border w3-round-large ">Sandycoombe Road - West Bound</button>
+        <div id="output_2"></div>
+    </p>
+
+    <p>
+        <button id="apiButton_3"  class="w3-button w3-blue w3-border w3-round-large">Marble Hill Park / Crown Road - West Bound</button>
+        <div id="output_3"></div>
+    </p>
+
+
+</div>
+
+<style>
+    .w3-btn {margin-bottom:10px;}
+</style>
+
+
+<script>
+    // Function to fetch data from the provided API URL and display it in the specified output div
+    function fetchData(apiUrl, outputId) {
+        fetch(apiUrl) // Fetch data from the API URL
+            .then(response => {
+                // Check if the response is successful (status code 200)
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json(); // Parse response as JSON
+            })
+            .then(data => {
+                const outputDiv = document.getElementById(outputId); // Select the output div by ID
+                outputDiv.innerHTML = ''; // Clear previous output
+
+                // Sort the data array by timeToStation property
+                data.sort((a, b) => a.timeToStation - b.timeToStation);
+
+                // Iterate through each prediction and display it
+                data.forEach(prediction => {
+                    const lineName = prediction.lineName;
+                    const destinationName = prediction.destinationName;
+                    const timeToStationSeconds = prediction.timeToStation;
+
+                    // Convert time to minutes or display "Due" if time is less than 1 minute
+                    let timeToStationMinutes;
+                    if (timeToStationSeconds < 60) {
+                        timeToStationMinutes = "Due";
+                    } else {
+                        timeToStationMinutes = Math.round(timeToStationSeconds / 60);
+                    }
+
+                    // Create div and span elements to display prediction details
+                    const predictionDiv = document.createElement('div');
+                    predictionDiv.style.display = 'flex';
+                    predictionDiv.style.alignItems = 'center';
+
+                    const lineSpan = document.createElement('span');
+                    const destinationSpan = document.createElement('span');
+                    const timeSpan = document.createElement('span');
+
+                    // Set text content and styles for each span
+                    lineSpan.textContent = lineName;
+                    destinationSpan.textContent = destinationName;
+                    timeSpan.textContent = timeToStationMinutes;
+
+                    lineSpan.style.width = '100px';
+                    destinationSpan.style.width = '250px';
+
+                    lineSpan.style.marginRight = '10px';
+                    destinationSpan.style.marginRight = '10px';
+
+                    // Append spans to the prediction div
+                    predictionDiv.appendChild(lineSpan);
+                    predictionDiv.appendChild(destinationSpan);
+                    predictionDiv.appendChild(timeSpan);
+
+                    // Append the prediction div to the output container
+                    outputDiv.appendChild(predictionDiv);
+                });
+            })
+            .catch(error => {
+                // Handle any errors that occur during the fetch
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    }
+
+    // Add event listeners to the buttons to trigger fetchData function with respective API URLs and output IDs
+    document.getElementById('apiButton_1').addEventListener('click', function() {
+        const apiUrlE = 'https://api.tfl.gov.uk/StopPoint/490011922E/Arrivals';
+        fetchData(apiUrlE, 'output_1'); // Pass 'output_1' as the second argument
+    });
+
+    document.getElementById('apiButton_2').addEventListener('click', function() {
+        const apiUrlW = 'https://api.tfl.gov.uk/StopPoint/490011922W/Arrivals';
+        fetchData(apiUrlW, 'output_2'); // Pass 'output_2' as the second argument
+    });
+
+    document.getElementById('apiButton_3').addEventListener('click', function() {
+        const apiUrlW = 'https://api.tfl.gov.uk/StopPoint/490005841T/Arrivals';
+        fetchData(apiUrlW, 'output_3'); // Pass 'output_3' as the second argument
+    });
+
+
+    
+</script>
+
+</body>
+</html>
