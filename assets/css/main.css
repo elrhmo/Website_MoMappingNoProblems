@@ -112,8 +112,12 @@ input, select, textarea {
 
 	h1, h2, h3, h4, h5, h6 {
 		font-weight: 300;
-		color: #666;
+		color: #000000;
 		line-height: 1.5em;
+	}
+
+	p {
+		color: #000000;
 	}
 
 	h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
@@ -132,6 +136,7 @@ input, select, textarea {
 
 		h2.alt {
 			color: #888;
+			
 		}
 
 			h2.alt strong {
@@ -2114,7 +2119,7 @@ input, select, textarea {
 			position: relative;
 			display: block;
 			font-size: 0.6em;
-			color: rgba(255, 255, 255, 0.5);
+			color: #ffffff80;
 			line-height: 1.25em;
 			margin: 0.5em 0 0 0;
 		}
