@@ -6,6 +6,15 @@
     <title>TfL info app</title>
     <!-- Adding CSS styles from w3schools -->
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+     <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
+
 </head>
 <body>
 
@@ -25,12 +34,23 @@
         <button id="apiButton_3"  class="w3-button w3-blue w3-border w3-round-large">Marble Hill Park / Crown Road - West Bound</button>
         <div id="output_3"></div>
     </p>
-
-
 </div>
 
+
+<div id="map"> </div>
+
+<!-- adding CSS styling within the  -->
 <style>
     .w3-btn {margin-bottom:10px;}
+    
+    /* setting positive, height and weight of the map container */
+    #map {
+    position: relative;
+    height: 600px;
+    width: 600px;
+    }
+
+</style>
 </style>
 
 
@@ -118,6 +138,34 @@
     });
 
 
+
+    //*** Leaflet***
+    // initialise Leaflet map 
+    var map = L.map('map').setView([51.455302, -0.320010], 15);
+
+    // add OSM tile layer basemap
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    // Adding markers
+    //var marker = L.marker([51.454289, -0.316048]).addTo(map);
+
+    // coordinate array with popup text
+    let points = [
+    [51.454289, -0.316048, "Bus Stop"],
+    [51.454217, -0.316409, "Bus Stop"],
+    [51.451705, -0.316795, "Bus Stop"],
+    [52.23040500771883, 21.012146472930908, "point 4"],
+    ];
+
+    // loop that adds many markers to the map
+    for (let i = 0; i < points.length; i++) {
+        const [lat, lng, popupText] = points[i];
+
+        marker = new L.marker([lat, lng]).bindPopup(popupText).addTo(map);
+    }
     
 </script>
 
