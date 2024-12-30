@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,4 +63,70 @@
 }
     </script>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <h1>Sourdough calculator</h1>
+    <p>How many loaves would you like to make? Enter a multiplier:</p>
+    <input type="number" id="multiplier" placeholder="Enter a number">
+
+    <!-- run the dough_multiplier() function when the button is pressed -->
+    <button onclick="dough_multiplier()">Multiply Ingredients</button>
+
+    <p id="ingredients-list"></p>
+
+    <p id="water-value"></p>
+    <p id="salt-value"></p>
+    <p id="sourdough-value"></p>
+    <p id="white-value"></p>
+    <p id="wholemeal-value"></p>
+
+
+    
+    <script>
+        console.log("test")
+
+        let water = 300
+        let salt = 11
+        let sourdoughStarter = 150
+        let whiteBreadFlour = 400
+        let wholemealBreadFlour = 100
+
+
+        function dough_multiplier() {
+            let multiplerValue = document.getElementById("multiplier").value
+            console.log(multiplerValue)
+            console.log(water)
+            console.log("Water: ", water * multiplerValue + " ml")
+            let waterM = "Water: "+ (water * multiplerValue) + " ml"
+            let saltM = "Salt: "+ (salt * multiplerValue) + " g"
+            let sourdoughM = "Sourdough stater: "+ (sourdoughStarter * multiplerValue) + " g"
+            let whiteM = "White bread flour: "+ (whiteBreadFlour * multiplerValue) + " g"
+            let wholemealM = "Wholemeal bread flour: "+ (wholemealBreadFlour * multiplerValue) + " g"
+            document.getElementById("water-value").innerHTML = waterM
+            document.getElementById("salt-value").innerHTML = saltM 
+            document.getElementById("sourdough-value").innerHTML = sourdoughM
+            document.getElementById("white-value").innerHTML = whiteM
+            document.getElementById("wholemeal-value").innerHTML = wholemealM
+
+
+
+}
+    </script>
+</body>
+>>>>>>> 0237167bb38bf7d4287c7dee1f0330115c7da311
 </html>
